@@ -8,11 +8,12 @@
 <div>
 	<p>TEST LOGIN OK</p>
 	<form method="post">
+	{% csrf_token %}
 		<p>Usuário</p>
-		<input type="text" name="username" value="">
+		<input type="text" name="username" value="{{ password.0 }}">
 		
 		<p>Senha</p>
-		<input type="password" name="password" value="">
+		<input type="password" name="password" value="{{ username.0 }}">
 		</br>
 		<input type="submit" name="login" value="Entrar">
 	</form>
