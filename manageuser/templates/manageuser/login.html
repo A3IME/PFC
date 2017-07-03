@@ -1,0 +1,20 @@
+{% extends "manageuser/header.html" %}
+
+{% block head %}
+	<title>Login</title>
+{%  endblock %}
+
+{% block body %}
+<div>
+	<p>TEST LOGIN OK</p>
+	<form method="post">
+		<p>Usuário</p>
+		<input type="text" name="username" value="">
+		
+		<p>Senha</p>
+		<input type="password" name="password" value="">
+		</br>
+		<input type="submit" name="login" value="Entrar">
+	</form>
+</div>
+{% endblock %}

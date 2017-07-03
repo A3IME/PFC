@@ -8,7 +8,12 @@ def index(request):
 		return redirect('/login/')
 
 def register(request):
-	return HttpResponse("<h2>FUNCIONA REGISTER</h2>")
+	return render(request, 'manageuser/register.html')
+#	if request.POST == None:
+#		return HttpResponse("<h2>FUNCIONA REGISTER NONE</h2>")
+#	else:
+#		return HttpResponse("<h2>FUNCIONA REGISTER NOT NONE</h2>")
 
 def login(request):
-	return HttpResponse("<h2>FUNCIONA LOGIN</h2>")
+	print(request.POST)
+	return render(request, 'manageuser/login.html')
