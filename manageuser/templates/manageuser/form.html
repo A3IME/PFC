@@ -1,0 +1,20 @@
+{% extends "manageuser/header.html" %}
+
+{% block head %}
+	{{ headCode|safe }}
+{%  endblock %}
+
+{% block body %}
+<div>
+	<form method="post">
+	<div>
+		{% csrf_token %}
+		{% include "manageuser/includes/form_printer.html" %}
+
+
+		{{ form.non_field_errors }}
+		<input type="submit" name="login" value="{{ submitValue }}">
+	</div>
+	</form>
+</div>
+{% endblock %}
