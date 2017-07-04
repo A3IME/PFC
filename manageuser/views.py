@@ -3,40 +3,47 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from .forms import Login, Register
-from src.definitions import my_login_required
+from src.definitions import my_login_required, my_anonymous_required, my_create_user
+from django.contrib.auth.models import User
 
 ###
 #MUDAR ISSO PRO OUTRO APP
 ###
 @my_login_required
 def index(request):
-	#if request.user.is_authenticated():
-		return HttpResponse("<h2>FUNCIONA AUTHENTICATION</h2>")
-	#else:
-	#	return redirect('/login/')
+	return HttpResponse("<h2>FUNCIONA AUTHENTICATION</h2>")
 
+
+@my_anonymous_required
 def register(request):
-	form = Register()
-	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Cadastro</title>', 'submitValue': 'Cadastrar'})
-#	if request.POST == None:
-#		return HttpResponse("<h2>FUNCIONA REGISTER NONE</h2>")
-#	else:
-#		return HttpResponse("<h2>FUNCIONA REGISTER NOT NONE</h2>")
-
-def login(request):
-	if not request.user.is_authenticated():
-		if request.method == 'POST':
-			form = Login(request.POST)
-
-			if form.is_valid():
-				user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-				if user is not None:
-					auth_login(request, user)
-					return HttpResponse("<h2>USER OK</h2>")
-				else: 
-					form.add_error(None, 'Usuário ou senha incorretos.')
-		else:
-			form = Login()
-		return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Login</title>', 'submitValue': 'Entrar'})
+	if request.method == 'POST':
+		print(request.POST)
+		form = Register(request.POST)
+		
+		if form.is_valid():
+			if User.objects.filter(username=form.cleaned_data['username']).exists():
+				form.add_error('username', 'Usuário já existe.')
+			elif form.cleaned_data['password'] != form.cleaned_data['cpassword']:
+				form.add_error('cpassword', 'Senha e confirmação diferentes')
+			else:
+				return my_create_user(form, request)
 	else:
-		return redirect('')
+		form = Register()
+	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Cadastro</title>', 'submitValue': 'Cadastrar'})
+
+
+@my_anonymous_required
+def login(request):
+	if request.method == 'POST':
+		form = Login(request.POST)
+
+		if form.is_valid():
+			user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+			if user is not None:
+				auth_login(request, user)
+				return HttpResponse("<h2>USER OK</h2>")
+			else: 
+				form.add_error(None, 'Usuário ou senha incorretos.')
+	else:
+		form = Login()
+	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Login</title>', 'submitValue': 'Entrar'})

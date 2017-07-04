@@ -9,6 +9,6 @@ class Register(forms.Form):
 	surname  = forms.CharField(label = 'Sobrenome', required = False)
 	username = forms.CharField(label='Usuário', error_messages={'required': 'Usuário não informado'})
 	password = forms.CharField(label='Senha', widget=forms.PasswordInput, error_messages={'required': 'Senha não informada'})
-	cpassword = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
+	cpassword = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput, error_messages={'required': 'Confirmar senha não informada'})
 
 	email = forms.CharField(label='Email', widget=forms.EmailInput, error_messages={'required': 'Email não informado'})
