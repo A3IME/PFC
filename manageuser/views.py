@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from .forms import Login, Register
+from .forms import Login, Register, Update_infos
 from src.definitions import my_login_required, my_anonymous_required, my_create_user
 from django.contrib.auth.models import User
 
@@ -47,3 +47,18 @@ def login(request):
 	else:
 		form = Login()
 	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Login</title>', 'submitValue': 'Entrar'})
+
+
+@my_login_required
+def update_infos(request):
+	if request.method == 'POST':
+		form = Update_infos(request.POST)
+		#VALIDAR FORM AQUI
+	else:
+		form = Update_infos(initial={
+
+						'name': request.user.get_full_name().split()[0],
+						'surname': request.user.get_full_name().split()[1],
+						'email': request.user.email
+					})
+	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})

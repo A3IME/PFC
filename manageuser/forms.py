@@ -12,3 +12,10 @@ class Register(forms.Form):
 	cpassword = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput, error_messages={'required': 'Confirmar senha não informada'})
 
 	email = forms.CharField(label='Email', widget=forms.EmailInput, error_messages={'required': 'Email não informado'})
+
+class Update_infos(forms.Form):
+	name  = forms.CharField(label = 'Nome', required = False)
+	surname  = forms.CharField(label = 'Sobrenome', required = False)
+
+	email = forms.CharField(label='Email', widget=forms.EmailInput, error_messages={'required': 'Email não informado'})
+		
