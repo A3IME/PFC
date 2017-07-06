@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from .forms import Login, Register, Update_infos
-from src.definitions import my_login_required, my_anonymous_required, my_create_user
+from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user
 from django.contrib.auth.models import User
 
 ###
@@ -53,7 +54,8 @@ def login(request):
 def update_infos(request):
 	if request.method == 'POST':
 		form = Update_infos(request.POST)
-		#VALIDAR FORM AQUI
+		if form.is_valid():
+			my_update_info_user(form, request)
 	else:
 		form = Update_infos(initial={
 
@@ -62,3 +64,8 @@ def update_infos(request):
 						'email': request.user.email
 					})
 	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
+
+@my_login_required
+def logout(request):
+	auth_logout(request)
+	return redirect('/')

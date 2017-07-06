@@ -40,5 +40,11 @@ def my_create_user(form, request):
 	return redirect('/')
 
 
+def my_update_info_user(form, request):
+	request.user.email = form.cleaned_data['email']
+	request.user.first_name = form.cleaned_data['name']
+	request.user.last_name = form.cleaned_data['surname']
+	request.user.save()
+
 #def user_to_form(user):
 	
