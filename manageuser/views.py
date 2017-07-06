@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from .forms import Login, Register, Update_infos
-from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user
+from .forms import Login, Register, Update_infos, Change_password
+from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user, my_change_password
 from django.contrib.auth.models import User
 
 ###
@@ -27,7 +27,8 @@ def register(request):
 			elif form.cleaned_data['password'] != form.cleaned_data['cpassword']:
 				form.add_error('cpassword', 'Senha e confirmação diferentes')
 			else:
-				return my_create_user(form, request)
+				my_create_user(form, request)
+				return redirect('/')
 	else:
 		form = Register()
 	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Cadastro</title>', 'submitValue': 'Cadastrar'})
@@ -64,6 +65,22 @@ def update_infos(request):
 						'email': request.user.email
 					})
 	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
+
+@my_login_required
+def change_password(request):
+	if request.method == 'POST':
+		form = Change_password(request.POST)
+		if form.is_valid():
+			if not request.user.check_password(form.cleaned_data['password']):
+				form.add_error('password', 'Senha incorreta')
+			elif form.cleaned_data['newPassword'] != form.cleaned_data['cnewPassword']:
+				form.add_error('cnewPassword', 'Nova senha e confirmação diferentes')
+			else:
+				my_change_password(form, request)
+				return redirect('/')
+	else:
+		form = Change_password()
+	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
 
 @my_login_required
 def logout(request):

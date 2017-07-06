@@ -36,8 +36,6 @@ def my_create_user(form, request):
 	user = authenticate(username=username, password=password)
 	if user is not None:
 		login(request, user)
-	
-	return redirect('/')
 
 
 def my_update_info_user(form, request):
@@ -45,6 +43,19 @@ def my_update_info_user(form, request):
 	request.user.first_name = form.cleaned_data['name']
 	request.user.last_name = form.cleaned_data['surname']
 	request.user.save()
+
+def my_change_password(form, request):
+	username = request.user.get_username()
+	password = form.cleaned_data['newPassword']
+
+	user = User.objects.get(username__exact=request.user.get_username())
+	user.set_password(form.cleaned_data['newPassword'])
+	user.save()	
+
+	user = authenticate(username=username, password=password)
+	if user is not None:
+		login(request, user)
+
 
 #def user_to_form(user):
 	
