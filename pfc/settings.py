@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['192.168.60.142']
 
 INSTALLED_APPS = [
     'manageuser',
+    'managefiles',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

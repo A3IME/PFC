@@ -1,0 +1,20 @@
+#!/bin/bash
+
+(
+	flock -x 9
+	A=$(cut -d ";" -f1 $1 | grep -c -w $2)
+	#echo $A
+	if [ $A == '0' ];
+	then
+		B=$(cut -d ";" -f1 $1 | grep -c -w 0)
+		if [ $B == '0' ];
+		then
+			echo False
+		else
+			echo $(grep -w 0 $1 | head -1)
+		fi
+	else
+		echo $(grep -w $2 $1 | head -1)
+	fi
+
+)9>>$1
