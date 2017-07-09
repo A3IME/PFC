@@ -7,14 +7,6 @@ from .forms import Login, Register, Update_infos, Change_password
 from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user, my_change_password
 from django.contrib.auth.models import User
 
-###
-#MUDAR ISSO PRO OUTRO APP
-###
-@my_login_required
-def index(request):
-	return HttpResponse("<h2>FUNCIONA AUTHENTICATION</h2>")
-
-
 @my_anonymous_required
 def register(request):
 	if request.method == 'POST':

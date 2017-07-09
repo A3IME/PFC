@@ -30,6 +30,10 @@ def my_create_user(form, request):
 	user.last_name = surname
 	user.save()
 
+	print("=========")
+	print(user.directory)
+	print("=========")
+
 	###
 	#CREATE DIRECTORY STRUCTURE HERE
 	###
@@ -56,6 +60,8 @@ def my_change_password(form, request):
 	if user is not None:
 		login(request, user)
 
-
-#def user_to_form(user):
-	
+def save_uploaded_file(user, f):
+	print("SAVE FILE")
+	with open('src/test.txt', 'wb+') as destination:
+		for chunk in f.chunks():
+			destination.write(chunk)
