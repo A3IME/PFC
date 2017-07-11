@@ -30,9 +30,9 @@ def my_create_user(form, request):
 	user.last_name = surname
 	user.save()
 
-	print("=========")
-	print(user.directory)
-	print("=========")
+	#print("=========")
+	#print(user.directories.directory)
+	#print("=========")
 
 	###
 	#CREATE DIRECTORY STRUCTURE HERE
@@ -45,7 +45,7 @@ def my_create_user(form, request):
 def my_update_info_user(form, request):
 	request.user.email = form.cleaned_data['email']
 	request.user.first_name = form.cleaned_data['name']
-	request.user.last_name = form.cleaned_data['surname']
+	r equest.user.last_name = form.cleaned_data['surname']
 	request.user.save()
 
 def my_change_password(form, request):
