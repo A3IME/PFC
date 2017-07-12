@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import QueryDict
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from subprocess import call, check_output
 
 
 def my_login_required(function=None, login_url=None):
@@ -30,13 +31,16 @@ def my_create_user(form, request):
 	user.last_name = surname
 	user.save()
 
-	#print("=========")
-	#print(user.directories.directory)
-	#print("=========")
+	root_directory = check_output(["pwd"])
+	user_full_path = root_directory.decode("utf-8")[:-1] + "/usr/" + user.directories.directory
+	call(["mkdir", "-p", user_full_path])
+	call(["touch", user_full_path + "/.gitignore"])
+	call(["chmod", "+w", user_full_path + "/.gitignore"])
+	gitignore_text = "# Ignore everything in this directory\n*\n# Except this file\n!.gitignore"
+	gitignore_file = open(user_full_path + "/.gitignore", "w")
+	gitignore_file.write(gitignore_text)
+	gitignore_file.close()
 
-	###
-	#CREATE DIRECTORY STRUCTURE HERE
-	###
 	user = authenticate(username=username, password=password)
 	if user is not None:
 		login(request, user)
@@ -45,7 +49,7 @@ def my_create_user(form, request):
 def my_update_info_user(form, request):
 	request.user.email = form.cleaned_data['email']
 	request.user.first_name = form.cleaned_data['name']
-	r equest.user.last_name = form.cleaned_data['surname']
+	request.user.last_name = form.cleaned_data['surname']
 	request.user.save()
 
 def my_change_password(form, request):
