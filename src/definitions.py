@@ -67,8 +67,10 @@ def my_change_password(form, request):
 
 def save_uploaded_file(user, f):
 	print("SAVE FILE")
-	root_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
-	call(["mkdir", "-p", root_directory])
-	with open(root_directory + "/" + f.name, 'wb+') as destination:
+	user_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/"
+	full_path =  user_directory + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+	call(["mkdir", "-p", full_path])
+	call(["rm", user_directory + ".gitignore"])
+	with open(full_path + "/" + f.name, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
