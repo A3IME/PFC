@@ -4,7 +4,8 @@ from django.http import QueryDict
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from subprocess import call, check_output
-
+from datetime import datetime
+from time import strftime
 
 def my_login_required(function=None, login_url=None):
 	actual_decorator = login_required(function=function, redirect_field_name=None, login_url=login_url)
@@ -31,8 +32,8 @@ def my_create_user(form, request):
 	user.last_name = surname
 	user.save()
 
-	root_directory = check_output(["pwd"])
-	user_full_path = root_directory.decode("utf-8")[:-1] + "/usr/" + user.directories.directory
+	root_directory = check_output(["pwd"]).decode("utf-8")[:-1]
+	user_full_path = root_directory + "/usr/" + user.directories.directory
 	call(["mkdir", "-p", user_full_path])
 	call(["touch", user_full_path + "/.gitignore"])
 	call(["chmod", "+w", user_full_path + "/.gitignore"])
@@ -66,6 +67,10 @@ def my_change_password(form, request):
 
 def save_uploaded_file(user, f):
 	print("SAVE FILE")
-	with open('src/test.txt', 'wb+') as destination:
+	user_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/"
+	full_path =  user_directory + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+	call(["mkdir", "-p", full_path])
+	call(["rm", user_directory + ".gitignore"])
+	with open(full_path + "/" + f.name, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
