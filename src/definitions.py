@@ -37,9 +37,8 @@ def my_create_user(form, request):
 	call(["mkdir", "-p", user_full_path])
 	call(["touch", user_full_path + "/.gitignore"])
 	call(["chmod", "+w", user_full_path + "/.gitignore"])
-	gitignore_text = "# Ignore everything in this directory\n*\n# Except this file\n!.gitignore"
 	gitignore_file = open(user_full_path + "/.gitignore", "w")
-	gitignore_file.write(gitignore_text)
+	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
 	gitignore_file.close()
 
 	user = authenticate(username=username, password=password)
@@ -70,6 +69,10 @@ def save_uploaded_file(user, f):
 	user_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/"
 	full_path =  user_directory + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
 	call(["mkdir", "-p", full_path])
+	call(["mkdir", "-p", full_path + "/reports"])
+	gitignore_file = open(full_path + "/reports/.gitignore", "w")
+	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
+	gitignore_file.close()
 	call(["rm", user_directory + ".gitignore"])
 	with open(full_path + "/" + f.name, 'wb+') as destination:
 		for chunk in f.chunks():
