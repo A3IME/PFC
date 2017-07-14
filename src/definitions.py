@@ -16,7 +16,7 @@ def my_anonymous_required(func):
 		if not request.user.is_authenticated():
 			return func(request)
 		else:
-			return redirect('/')
+			return redirect('/home')
 	return func_wrapper
 
 
@@ -74,6 +74,10 @@ def save_uploaded_file(user, f):
 	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
 	gitignore_file.close()
 	call(["rm", user_directory + ".gitignore"])
-	with open(full_path + "/" + f.name, 'wb+') as destination:
+	file_path = full_path + "/" + f.name
+	with open(file_path, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
+	#CALL HERE MODEL 2 SCRIPT
+	#FANTASY NAME FUNCTION BELOW
+	#analyse(full_path, file_path)

@@ -7,6 +7,16 @@ from .forms import Login, Register, Update_infos, Change_password
 from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user, my_change_password
 from django.contrib.auth.models import User
 
+
+@my_anonymous_required
+def index(request):
+	return redirect('/login')
+	#if something == register:
+		#return register(request)
+	#else
+		#return login(request)
+
+	
 @my_anonymous_required
 def register(request):
 	if request.method == 'POST':
@@ -35,7 +45,7 @@ def login(request):
 			user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
 			if user is not None:
 				auth_login(request, user)
-				return HttpResponse("<h2>USER OK</h2>")
+				return redirect('/')
 			else: 
 				form.add_error(None, 'Usuário ou senha incorretos.')
 	else:
@@ -56,7 +66,7 @@ def update_infos(request):
 						'surname': request.user.get_full_name().split()[1],
 						'email': request.user.email
 					})
-	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
+	return render(request, 'manageuser/form.html', {'formUpdate': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
 
 @my_login_required
 def change_password(request):
@@ -69,10 +79,10 @@ def change_password(request):
 				form.add_error('cnewPassword', 'Nova senha e confirmação diferentes')
 			else:
 				my_change_password(form, request)
-				return redirect('/')
+				#return redirect('/')
 	else:
 		form = Change_password()
-	return render(request, 'manageuser/form.html', {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
+	return render(request, 'manageuser/form.html', {'formPassword': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
 
 @my_login_required
 def logout(request):
