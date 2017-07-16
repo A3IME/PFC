@@ -5,10 +5,6 @@ from src.definitions import my_login_required, save_uploaded_file
 from subprocess import check_output
 
 @my_login_required
-def index(request):
-	return HttpResponse("<h2>FUNCIONA AUTHENTICATION</h2>")
-
-@my_login_required
 def file_upload(request):
 	if request.method == 'POST':
 		print("UP POST")

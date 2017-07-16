@@ -4,7 +4,7 @@ from django.http import QueryDict
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from subprocess import call, check_output
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from time import strftime
 
 def my_login_required(function=None, login_url=None):
@@ -16,7 +16,7 @@ def my_anonymous_required(func):
 		if not request.user.is_authenticated():
 			return func(request)
 		else:
-			return redirect('/')
+			return redirect('/home')
 	return func_wrapper
 
 
@@ -67,13 +67,17 @@ def my_change_password(form, request):
 def save_uploaded_file(user, f):
 	print("SAVE FILE")
 	user_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/"
-	full_path =  user_directory + datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f")
+	full_path =  user_directory + datetime.now(tz=timezone(offset=timedelta(hours=-3))).strftime("%Y-%m-%d-%H-%M-%S-%f")
 	call(["mkdir", "-p", full_path])
 	call(["mkdir", "-p", full_path + "/reports"])
 	gitignore_file = open(full_path + "/reports/.gitignore", "w")
 	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
 	gitignore_file.close()
 	call(["rm", user_directory + ".gitignore"])
-	with open(full_path + "/" + f.name, 'wb+') as destination:
+	file_path = full_path + "/" + f.name
+	with open(file_path, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
+	#CALL HERE MODEL 2 SCRIPT
+	#FANTASY NAME FUNCTION BELOW
+	#analyse(full_path, file_path)

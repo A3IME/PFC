@@ -1,4 +1,7 @@
 db.sqlite3.bak
 run
 runhidden
+*.pyc
 **/**/*.pyc
+*.bak
+**/**/*.bak
