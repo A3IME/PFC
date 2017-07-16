@@ -1,0 +1,15 @@
+<head>
+  <title>Relatórios do usuário {{ user_name }}</title>
+</head>
+
+<html>
+  <body>
+    <h2>Uploads</h2>
+    <ul style="list-style-type:none">
+      {% for directory in user_directories %}
+      <li><a href="{% url 'managefiles:reports' directory %}">{{ directory }}</a></li>
+      {% endfor %}
+    </ul>  
+    
+  </body>
+</html>
