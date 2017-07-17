@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login
 from subprocess import call, check_output
 from datetime import datetime, timezone, timedelta
 from time import strftime
+from src.tools import virusTotal
+import json
 
 def my_login_required(function=None, login_url=None):
 	actual_decorator = login_required(function=function, redirect_field_name=None, login_url=login_url)
@@ -90,8 +92,11 @@ def generate_reports(full_path, file_path):
 
 def generate_static_reports(full_path, file_path):
         static_analysis_string = check_output(["peframe", "--json", file_path]).decode("utf-8")
+        static_analysis_dict = json.loads(static_analysis_string)
         strings_report_string = check_output(["peframe", "--strings", file_path]).decode("utf-8")
-        final_string = "{\n\"analysis\":" + static_analysis_string[:-1] + ",\n\"strings\":" + strings_report_string + "}"
+        strings_report_dict = json.loads(strings_report_string)
+        static_analysis_dict.update(strings_report_dict)
+        final_string = json.dumps(static_analysis_dict, indent=4, sort_keys=False)
         with open(full_path + "/reports/static_analysis.json", "w+") as outputfile:
                 outputfile.write(final_string)
 
@@ -99,4 +104,6 @@ def generate_dynamic_reports(full_path, file_path):
         return
 
 def generate_virus_total_reports(full_path, file_path):
-        return
+        virus_total_string = json.dumps(virusTotal(file_path), indent=4, sort_keys=False)
+        with open(full_path + "/reports/virus_total.json", "w+") as outputfile:
+                outputfile.write(virus_total_string)
