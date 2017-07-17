@@ -6,9 +6,9 @@
   <body>
     <h2>Relatórios</h2>
     <ul style="list-style-type:none">
-      <li><a href="http://pudim.com.br/">Análise Estática</a></li>
-      <li><a href="http://pudim.com.br/">Análise Dinâmica</a></li>
-      <li><a href="http://pudim.com.br/">Vírus Total</a></li>
+      <li><a href="{% url 'managefiles:download' report_time 'static' %}">Análise Estática</a></li>
+      <li><a href="{% url 'managefiles:download' report_time 'dynamic' %}">Análise Dinâmica</a></li>
+      <li><a href="{% url 'managefiles:download' report_time 'virus_total' %}">Vírus Total</a></li>
     </ul>  
     
   </body>
