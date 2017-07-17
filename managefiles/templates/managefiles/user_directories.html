@@ -5,11 +5,12 @@
 <html>
   <body>
     <h2>Uploads</h2>
+    {% if user_directories %}
     <ul style="list-style-type:none">
       {% for directory in user_directories %}
       <li><a href="{% url 'managefiles:reports' directory %}">{{ directory }}</a></li>
       {% endfor %}
     </ul>  
-    
+    {% endif %}
   </body>
 </html>

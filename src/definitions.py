@@ -80,4 +80,24 @@ def save_uploaded_file(user, f):
 			destination.write(chunk)
 	#CALL HERE MODEL 2 SCRIPT
 	#FANTASY NAME FUNCTION BELOW
-	#analyse(full_path, file_path)
+	generate_reports(full_path, file_path)
+
+def generate_reports(full_path, file_path):
+	generate_static_reports(full_path, file_path)
+	generate_dynamic_reports(full_path, file_path)
+	generate_virus_total_reports(full_path, file_path)
+	print("SAVE FILE")
+
+def generate_static_reports(full_path, file_path):
+        call(["mkdir", "-p", full_path + "/reports/static"])
+        static_analysis_string = check_output(["peframe", "--json", file_path]).decode("utf-8")
+        strings_report_string = check_output(["peframe", "--strings", file_path]).decode("utf-8")
+        final_string = "{\n\"analysis\":" + static_analysis_string[:-1] + ",\n\"strings\":" + strings_report_string + "}"
+        with open(full_path + "/reports/static/report.json", "w+") as outputfile:
+                outputfile.write(final_string)
+
+def generate_dynamic_reports(full_path, file_path):
+        return
+
+def generate_virus_total_reports(full_path, file_path):
+        return

@@ -25,6 +25,7 @@ def show_directories(request):
 	user = request.user
 	reports_directory = check_output(["pwd"]).decode("utf-8")[:-1] + "/usr/" + user.directories.directory
 	user_directories_list = check_output(["ls", reports_directory]).decode("utf-8")[:-1].split("\n")
+	user_directories_list.pop()
 	return render(request, 'managefiles/user_directories.html', {'user_name': user.username, 'user_directories': user_directories_list})
 
 @my_login_required
