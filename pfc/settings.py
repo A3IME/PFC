@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['192.168.60.142', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'widget_tweaks',
     'manageuser',
     'managefiles',
     'django.contrib.admin',
@@ -120,4 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'home/f3l1p3/artefathos_v2/manageuser/'
+STATIC_DIRS = [os.path.join(BASE_DIR, 'static')]
 LOGIN_URL = '/login/'

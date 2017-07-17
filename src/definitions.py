@@ -21,8 +21,8 @@ def my_anonymous_required(func):
 
 
 def my_create_user(form, request):
-	username = form.cleaned_data['username']
-	password = form.cleaned_data['password']
+	username = form.cleaned_data['username_register']
+	password = form.cleaned_data['password_register']
 	email = form.cleaned_data['email']
 	name = form.cleaned_data['name']
 	surname = form.cleaned_data['surname']
