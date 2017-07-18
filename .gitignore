@@ -5,3 +5,5 @@ runhidden
 **/**/*.pyc
 *.bak
 **/**/*.bak
+*.sqlite3
+usr/**
