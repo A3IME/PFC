@@ -95,6 +95,7 @@ def generate_static_reports(full_path, file_path):
         with open(full_path + "/reports/static_analysis.json", "w+") as outputfile:
                 outputfile.write(final_string)
 
+#CHANGE THIS TO METHODS OF CLASSES
 def generate_dynamic_reports(full_path, file_path):
         return
 

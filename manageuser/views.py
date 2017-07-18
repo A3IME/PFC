@@ -4,8 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from .forms import Login, Register, Update_infos, Change_password
-from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user, \
-    my_change_password
+from src.definitions import my_login_required, my_anonymous_required, my_create_user, my_update_info_user, my_change_password
 from django.contrib.auth.models import User
 
 
