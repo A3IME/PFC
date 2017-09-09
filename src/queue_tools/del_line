@@ -1,0 +1,10 @@
+#!/bin/bash
+
+(
+	flock -x 9
+			A=$(grep -n -w $2 $1 | head -1 | cut -d ":" -f1)
+            if [ -n "$A" ];
+            then
+			    sed -i -e "$A"'d' $1
+            fi
+)9>>$1

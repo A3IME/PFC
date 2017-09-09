@@ -1,0 +1,7 @@
+#!/bin/bash
+
+(
+	flock -x 8
+    #CHANGE SLEEP TIME. T >= 15
+    sleep 3
+)8>>$1

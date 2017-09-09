@@ -3,7 +3,6 @@
 (
 	flock -x 9
 	A=$(cut -d ";" -f1 $1 | grep -c -w $2)
-	#echo $A
 	if [ $A == '0' ];
 	then
 		B=$(cut -d ";" -f1 $1 | grep -c -w 0)
@@ -18,8 +17,6 @@
 		fi
 	else
 		echo $(grep -w $2 $1 | head -1)
-		#C=$(grep -n -w $2 $1 | head -1 | cut -d ":" -f1)
-		#sed -i -e "$C"'d' $1
 	fi
 
 )9>>$1

@@ -74,7 +74,7 @@ def update_infos(request):
             'email': request.user.email
         })
     return render(request, 'manageuser/form.html',
-                  {'formUpdate': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
+                  {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
 
 
 @my_login_required
@@ -92,7 +92,7 @@ def change_password(request):
     else:
         form = Change_password()
     return render(request, 'manageuser/form.html',
-                  {'formPassword': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
+                  {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
 
 
 @my_login_required

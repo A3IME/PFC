@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+import subprocess
+
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "A"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "B"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "C"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "D"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "E"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "F"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "G"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "H"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "I"])
+print("Done")
+subprocess.Popen(["./VTLockManager.py", "virusTotalLock", "J"])
+print("Done")
