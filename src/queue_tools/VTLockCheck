@@ -2,6 +2,7 @@
 
 (
 	flock -x 8
+    #echo VTL
     #CHANGE SLEEP TIME. T >= 15
-    sleep 3
+    sleep 15
 )8>>$1

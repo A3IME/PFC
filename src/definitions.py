@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import QueryDict
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from subprocess import call, check_output
+from subprocess import call, check_output, Popen
 from datetime import datetime, timezone, timedelta
 from time import strftime
 from src.tools import virusTotal
@@ -82,7 +82,9 @@ def save_uploaded_file(user, f):
 			destination.write(chunk)
 	#CALL HERE MODEL 2 SCRIPT
 	#FANTASY NAME FUNCTION BELOW
-	generate_reports(full_path, file_path)
+	#Popen(["pwd"])
+	#generate_reports(full_path, file_path)
+	Popen(["./src/tools2.py", full_path, file_path])
 
 def generate_reports(full_path, file_path):
 	generate_static_reports(full_path, file_path)

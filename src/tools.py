@@ -20,3 +20,4 @@ def virusTotal(path):
     resp = new_response.json()
     #print(resp)
     return resp
+

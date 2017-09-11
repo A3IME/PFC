@@ -14,8 +14,8 @@ class myThread(threading.Thread):
             #dynamicAnalisys
             print("Dyn An")
             print(self.data)
-            time.sleep(1)
-            subprocess.run(["./del_line", "test", str(self.threadID)])
+            time.sleep(3)
+            subprocess.run(["./pop_line", "test", str(self.threadID)])
             self.data = qCheck(self.threadID)
         myLock.acquire()
         freeThreads.add(self.threadID)
@@ -44,12 +44,12 @@ while True:
     myLock.acquire()
     if freeThreads:
         for t in freeThreads:
-            a = qCheck(t)
-            print(t)
-            print(a)
-            print("===========")
-            if (not (a == ['False'])):
-                myThread(t, a).start()
+            data = qCheck(t)
+            #print(t)
+            #print(data)
+            #print("===========")
+            if (not (data == ['False'])):
+                myThread(t, data).start()
                 usedThreads.add(t)
         freeThreads = freeThreads - usedThreads
         usedThreads = set()
