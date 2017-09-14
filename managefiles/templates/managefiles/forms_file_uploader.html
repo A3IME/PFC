@@ -1,0 +1,85 @@
+{% extends 'managefiles/index.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="row">
+	<div id="breadcrumb" class="col-md-12">
+		<ol class="breadcrumb">
+			<li><a href="/home">Home</a></li>
+		</ol>
+	</div>
+</div>
+<!--link href="{% static 'managefiles/fine-uploader/fine-uploader-gallery.css' %}"-->
+<!--link href="{% static 'managefiles/fine-uploader/fine-uploader-new.css' %}" rel="stylesheet"-->
+<link href="{% static 'managefiles/plugins/fineuploader/fineuploader-4.3.1.css' %}">
+<!--script src="{% static 'managefiles/plugins/fineuploader/iframe.xss.response-4.3.1.js' %}"></script-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{% static 'managefiles/fine-uploader/jquery.fine-uploader.js' %}"></script>
+
+
+
+
+<script type="text/template" id="qq-template-gallery">
+	<div class="qq-uploader-selector qq-uploader span12">
+		<div class="qq-upload-drop-area-selector qq-upload-drop-area span12">
+		</div>
+		<div class="qq-upload-button-selector qq-upload-button btn btn-success" style="width: auto;">
+			<div><i class="fa fa-upload icon-white"></i> Ou envie por aqui...</div>
+		</div>
+		<div class="qq-dropped-zone"><i class="fa fa-cloud"></i> Pegue e arraste um arquivo</div>
+	<span class="qq-drop-processing-selector qq-drop-processing">
+		<span>Processando arquivos submetidos...</span>
+		<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+	</span>
+		<ul class="qq-upload-list-selector qq-upload-list">
+			<li>
+				<div class="qq-progress-bar-container-selector progress-bar progress-bar-success">
+					<div class="qq-progress-bar-selector qq-progress-bar"></div>
+				</div>
+				<img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+				<div class="qq-upload-filename">
+					<span class="qq-upload-file-selector qq-upload-file"></span>
+					<span class="qq-upload-size-selector qq-upload-size"></span>
+					<span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+				</div>
+				<div class="qq-upload-settings">
+					<a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
+					<a class="qq-upload-retry-selector qq-upload-retry" href="#">Retry</a>
+					<a class="qq-upload-delete-selector qq-upload-delete" href="#">Delete</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</script>
+<div id="fine-uploader-gallery"></div>
+
+    <script>
+        $('#fine-uploader-gallery').fineUploader({
+		template: 'qq-template-gallery',
+		classes: {
+			success: 'alert alert-success',
+			fail: 'alert alert-error'
+		},
+		thumbnails: {
+			placeholders: {
+				waitingPath: "assets/waiting-generic.png",
+				notAvailablePath: "assets/not_available-generic.png"
+			}
+		},
+		request: {
+			endpoint: '/up'
+		},
+		validation: {
+			allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+		}
+	});
+
+    </script>
+{% endblock content %}
+
+
+
+

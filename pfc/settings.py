@@ -25,7 +25,7 @@ SECRET_KEY = '900jf1cn&do(x3s0w!tjb2avnr1yar8xbvvg^2lr=*6=r&00-*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.60.142', 'localhost']
+ALLOWED_HOSTS = ['192.168.60.142', 'localhost',]
 
 
 # Application definition
@@ -121,6 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'home/f3l1p3/artefathos_v2/manageuser/'
-STATIC_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = 'home/f3l1p3/artefAthos/managefiles/static'
+STATIC_DIRS = [os.path.join(BASE_DIR, 'static'),
+               "/home/f3l1p3/artefAthos/managefiles/static",
+               "/home/f3l1p3/artefAthos/manageuser/static",
+        ]
 LOGIN_URL = '/login/'
