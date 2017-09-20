@@ -8,7 +8,6 @@ import requests
 import time
 import shutil
 from json2html import *
-
 from subprocess import call, check_output, run, Popen
 
 def generate_static_reports(full_path, file_path):
@@ -35,19 +34,16 @@ def generate_dynamic_reports(full_path, file_path):
 	task_id = r.json()["task_id"]
 	
 	status = 'not reported'
-	#print(status)
 	
 	while status != 'reported':
 		r = requests.get("http://localhost:8090/tasks/view/" + str(task_id))
 		status = r.json()["task"]["status"]
-		#print(status)
 		time.sleep(60)
 	os.chdir(full_path + "/reports")
 	path_analyses_cuckoo = "/home/artefathos/.cuckoo/storage/analyses/" + str(task_id)
 	shutil.make_archive("Arquivos_Analise_Dinamica", "zip", path_analyses_cuckoo)
 	
 	copyfile(path_analyses_cuckoo + "/reports/report.html", full_path + "/dynamic_analysis.html") 
-	#print("DYN REP WHRITTEN OK")
         
 
 def generate_virus_total_reports(full_path, file_path):
@@ -76,7 +72,6 @@ def virusTotal(path):
 
     new_response = requests.get('https://www.virustotal.com/vtapi/v2/file/report', params=params, headers=headers)
     resp = new_response.json()
-    #print(resp)
     return resp
 
 full_path = sys.argv[1]
@@ -84,4 +79,3 @@ file_path = sys.argv[2]
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
 generate_dynamic_reports(full_path, file_path)
-#print("SAVE FILE")

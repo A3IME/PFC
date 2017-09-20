@@ -1,9 +1,9 @@
-[31m
-                          .:
-                          ::
-    .-.     ,  :   .-.    ;;.-.  .-.   .-.
-   ;       ;   ;  ;       ;; .' ;   ;';   ;'
-   `;;;;'.'`..:;._`;;;;'_.'`  `.`;;'  `;;'[0m
+[33m
+                               ),-.     /
+  Cuckoo Sandbox              <(a  `---','
+     no chance for malwares!  ( `-, ._> )
+                               ) _>.___/
+                                   _/[0m
 
  Cuckoo Sandbox [33m2.0.4[0m
  www.cuckoosandbox.org

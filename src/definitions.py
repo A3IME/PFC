@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login
 from subprocess import call, check_output, Popen
 from datetime import datetime, timezone, timedelta
 from time import strftime
-#from src.tools import virusTotal
 import json
 
 def my_login_required(function=None, login_url=None):
@@ -37,11 +36,6 @@ def my_create_user(form, request):
 	root_directory = check_output(["pwd"]).decode("utf-8")[:-1]
 	user_full_path = root_directory + "/usr/" + user.directories.directory
 	call(["mkdir", "-p", user_full_path])
-	call(["touch", user_full_path + "/.gitignore"])
-	call(["chmod", "+w", user_full_path + "/.gitignore"])
-	gitignore_file = open(user_full_path + "/.gitignore", "w")
-	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
-	gitignore_file.close()
 
 	user = authenticate(username=username, password=password)
 	if user is not None:
@@ -67,47 +61,12 @@ def my_change_password(form, request):
 		login(request, user)
 
 def save_uploaded_file(user, f):
-	print("SAVE FILE")
 	user_directory = check_output(['pwd']).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/"
 	full_path =  user_directory + datetime.now(tz=timezone(offset=timedelta(hours=-3))).strftime("%Y-%m-%d-%H-%M-%S-%f")
 	call(["mkdir", "-p", full_path])
 	call(["mkdir", "-p", full_path + "/reports"])
-	#call(["mkdir", "-p", full_path + "/reports" + "/dynamic_files"])
-	#gitignore_file = open(full_path + "/reports/.gitignore", "w")
-	#gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
-	#gitignore_file.close()
-	#call(["rm", user_directory + ".gitignore"])
 	file_path = full_path + "/" + f.name
 	with open(file_path, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
 	Popen(["./src/tools.py", full_path, file_path])
-
-'''
-APAGAR TD DAQUI PRA BAIXO!!!!
-
-def generate_reports(full_path, file_path):
-	generate_static_reports(full_path, file_path)
-	generate_dynamic_reports(full_path, file_path)
-	generate_virus_total_reports(full_path, file_path)
-	print("SAVE FILE")
-
-def generate_static_reports(full_path, file_path):
-        static_analysis_string = check_output(["peframe", "--json", file_path]).decode("utf-8")
-        static_analysis_dict = json.loads(static_analysis_string)
-        strings_report_string = check_output(["peframe", "--strings", file_path]).decode("utf-8")
-        strings_report_dict = json.loads(strings_report_string)
-        static_analysis_dict.update(strings_report_dict)
-        final_string = json.dumps(static_analysis_dict, indent=4, sort_keys=False)
-        with open(full_path + "/reports/static_analysis.json", "w+") as outputfile:
-                outputfile.write(final_string)
-
-#CHANGE THIS TO METHODS OF CLASSES
-def generate_dynamic_reports(full_path, file_path):
-        return
-
-def generate_virus_total_reports(full_path, file_path):
-        virus_total_string = json.dumps(virusTotal(file_path), indent=4, sort_keys=False)
-        with open(full_path + "/reports/virus_total.json", "w+") as outputfile:
-                outputfile.write(virus_total_string)
-'''
