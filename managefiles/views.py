@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .forms import File_upload, UploadFileForm
 from src.definitions import my_login_required, save_uploaded_file
+import subprocess
 from subprocess import check_output
 from pathlib import Path
 from distutils.dir_util import copy_tree
@@ -34,7 +35,15 @@ def show_directories(request):
 	reports_directory = check_output(["pwd"]).decode("utf-8")[:-1] + "/usr/" + user.directories.directory
 	user_directories_list = check_output(["ls", reports_directory]).decode("utf-8").split("\n")
 	user_directories_list.pop()
-	return render(request, 'managefiles/relatorios.html', {'user_name': user.username, 'user_directories': user_directories_list})
+	info_list = []
+	for directory in user_directories_list:
+	    ls = subprocess.Popen(('ls', reports_directory + "/" + directory), stdout=subprocess.PIPE)
+	    output = subprocess.check_output(('grep', '-v', 'reports'), stdin=ls.stdout).decode("utf-8").split("\n")[0]
+	    ls.wait()
+	    ready_reports = check_output(["ls", reports_directory + "/" + directory + "/reports"]).decode("utf-8").split("\n")
+	    info_list.append({"dir":directory, "file":output, "virus_total_ready":"virus_total.json" in ready_reports, "static_ready":"static_analysis.json" in ready_reports, "dynamic_ready":"dynamic_analysis.json" in ready_reports})
+
+	return render(request, 'managefiles/relatorios.html', {'user_name': user.username, 'info_list': info_list})
 
 @my_login_required
 def show_reports(request, report_time):

@@ -45,50 +45,45 @@
 					</thead>
 					<tbody>
 					<!-- Start: list_row -->
-						{% if info_list %}
-							{% for info in info_list %}
+						{% if user_directories %}
+							{% for directory in files_list %}
 								<tr>
-									<td><a>{{ info.dir }}</a></td>
-                                                                        <td>{{ info.file }}</td>
+									<td><a>{{ directory.0 }}</a></td>
+                                                                        <td>{{ directory.1 }}</td>
+                                                                        {% if virus_total_ready %}
 									<td style="padding-bottom: 0px">
 										<center>
-                                                                                        {% if info.virus_total_ready %}
-											<a href="/relatorios/{{ info.dir }}/virus_total">
+											<a href="/relatorios/{{ directory }}/virus_total">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
-                                                                                        {% else %}
-                                                                                        Analisando...
-                                                                                        {% endif %}
 										</center>
 									</td>
+                                                                        {% endif %}
+                                                                        {% if static_ready %}
 									<td style="padding-bottom: 0px">
 										<center>
-                                                                                        {% if info.static_ready %}
-											<a href="/relatorios/{{ info.dir }}/static">
+											<a href="/relatorios/{{ directory }}/static">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
-                                                                                        {% else %}
-                                                                                        Analisando...
-                                                                                        {% endif %}
 										</center>
 									</td>
+                                                                        {% endif %}
+                                                                        {% if dynamic_ready %}
 									<td style="padding-bottom: 0px">
 										<center>
-                                                                                        {% if info.dynamic_ready %}
-											<a href="/relatorios/{{ info.dir }}/dynamic">
+											<a href="/relatorios/{{ directory }}/dynamic">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
-                                                                                        {% else %}
-                                                                                        Analisando...
-                                                                                        {% endif %}
 										</center>
 									</td>
+                                                                        {% endif %}
+
 								</tr>
 							{% endfor %}
 						{% endif %}
