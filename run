@@ -1,0 +1,5 @@
+VBoxManage startvm Zeus > log/log_vbox.txt
+cuckoo api >log/log_cuckoo_api.txt
+sleep 60
+cuckoo > log/log_cuckoo.txt
+python3 manage.py runserver > log/log_django.txt
