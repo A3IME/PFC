@@ -41,7 +41,8 @@ def show_directories(request):
 	    output = subprocess.check_output(('grep', '-v', 'reports'), stdin=ls.stdout).decode("utf-8").split("\n")[0]
 	    ls.wait()
 	    ready_reports = check_output(["ls", reports_directory + "/" + directory + "/reports"]).decode("utf-8").split("\n")
-	    info_list.append({"dir":directory, "file":output, "virus_total_ready":"virus_total.json" in ready_reports, "static_ready":"static_analysis.json" in ready_reports, "dynamic_ready":"dynamic_analysis.json" in ready_reports})
+	    print(ready_reports)
+	    info_list.append({"dir":directory, "file":output, "virus_total_ready":"virus_total.json" in ready_reports, "static_ready":"static_analysis.json" in ready_reports, "dynamic_ready":"Arquivos_Analise_Dinamica.zip" in ready_reports})
 
 	return render(request, 'managefiles/relatorios.html', {'user_name': user.username, 'info_list': info_list})
 
@@ -60,6 +61,7 @@ def download_file(request, report_time, analysis_type):
 			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/static_analysis.json")
 			return response
 	elif analysis_type == "dynamic":
+		"""		
 		dir_dynamic_files = dir_path + "/dynamic_files"
 		with open(dir_path + "/id_cuckoo.json", "r") as f:
 			id_cuckoo = f.read()
@@ -73,6 +75,10 @@ def download_file(request, report_time, analysis_type):
 		with open(dir_dynamic_files + "/reports/report.json", "r") as f:
 			response = HttpResponse(f.read(), content_type="json")
 			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/dynamic_analysis.json")
+		"""
+		with open(dir_path + "/Arquivos_Analise_Dinamica.zip", "r") as f:
+			response = HttpResponse(f.read(), content_type="zip")
+			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/dynamic_analysis.zip")
 			return response		
 	elif analysis_type == "virus_total":
 		with open(dir_path + "/virus_total.json", "r") as f:
