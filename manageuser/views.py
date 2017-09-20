@@ -73,7 +73,9 @@ def update_infos(request):
             'surname': request.user.get_full_name().split()[1],
             'email': request.user.email
         })
-    return render(request, 'manageuser/form.html',
+    #return render(request, 'manageuser/form.html',
+     #             {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
+    return render(request, 'managefiles/atualizar_cadastro.html',
                   {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
 
 
@@ -91,8 +93,9 @@ def change_password(request):
                 # return redirect('/')
     else:
         form = Change_password()
-    return render(request, 'manageuser/form.html',
-                  {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
+    #return render(request, 'manageuser/form.html',
+     #             {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
+    return render(request, 'managefiles/nova_senha.html', {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
 
 
 @my_login_required

@@ -77,13 +77,13 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="#">
+										<a href="/atualizar">
 											<i class="fa fa-user"></i>
 											<span class="hidden-sm text">Perfil</span>
 										</a>
 									</li>
 									<li>
-										<a href="#">
+										<a href="/novasenha">
 											<i class="fa fa-cog"></i>
 											<span class="hidden-sm text">Configurações</span>
 										</a>
@@ -110,35 +110,24 @@
 		<div id="sidebar-left" class="col-xs-2 col-sm-2">
 			<ul class="nav main-menu">
 				<li>
-					<a href="/home" class="active">
+					<a href="/home" class="active" id="home">
 						<i class="fa fa-dashboard"></i>
 						<span class="hidden-xs">Home</span>
 					</a>
 				</li>
 				<li class="dropdown">
-					<a href="/relatorios" class="dropdown-toggle">
-						<i class="fa fa-picture-o"></i>
+					<a href="/relatorios" class="" id="relatorios">
+						<i class="fa fa-files-o"></i>
 						 <span class="hidden-xs">Relatórios</span>
 					</a>
 				</li>
 			</ul>
 		</div>
-		  <!--div id="bootstrapped-fine-uploader"></div-->
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
-			<!--div class="preloader">
-				<img src="{% static 'img/devoops_getdata.gif' %}" class="devoops-getdata" alt="preloader"/>
-			</div-->
-			<!--div id="ajax-content"-->
-				{% block content %}
-				{% endblock content %}
-
-
-
-			<!--/div-->
-
+			{% block content %}
+			{% endblock content %}
 		</div>
-
 	</div>
 </div>
 <!--End Container-->
@@ -156,5 +145,4 @@
 <script src="{% static 'managefiles/js/devoops.js' %}"></script>
 
 
-</body>
-</html>
+
