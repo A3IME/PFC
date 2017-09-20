@@ -55,6 +55,11 @@
                                                                                         {% if info.virus_total_ready %}
 											<a href="/relatorios/{{ info.dir }}/virus_total">
 												<div class="btn btn-app btn-app-sm">
+													<i class="fa fa-eye"></i>
+												</div>
+											</a>
+											<a href="/relatorios/{{ info.dir }}/virus_total">
+												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
@@ -66,12 +71,22 @@
 									<td style="padding-bottom: 0px">
 										<center>
                                                                                         {% if info.static_ready %}
+
+											<div class="btn btn-app btn-app-sm">
+												<i class="fa fa-eye-slash"></i>
+											</div>
+
 											<a href="/relatorios/{{ info.dir }}/static">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
                                                                                         {% else %}
+											<a href="/relatorios/{{ info.dir }}/virus_total">
+												<div class="btn btn-danger btn-app-sm">
+													<i class="fa fa-spinner fa-spin"></i>
+												</div>
+											</a>
                                                                                         Analisando...
                                                                                         {% endif %}
 										</center>
@@ -79,13 +94,22 @@
 									<td style="padding-bottom: 0px">
 										<center>
                                                                                         {% if info.dynamic_ready %}
+											<a href="/relatorios/{{ info.dir }}/virus_total">
+												<div class="btn btn-app btn-app-sm">
+													<i class="fa fa-eye"></i>
+												</div>
+											</a>
 											<a href="/relatorios/{{ info.dir }}/dynamic">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-cloud-download"></i>
 												</div>
 											</a>
                                                                                         {% else %}
-                                                                                        Analisando...
+											<a href="/relatorios/{{ info.dir }}/virus_total">
+												<div class="btn btn-danger btn-app-sm">
+													<i class="fa fa-spinner fa-spin"></i>
+												</div>
+											</a>
                                                                                         {% endif %}
 										</center>
 									</td>
@@ -113,6 +137,11 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#home").attr("class", "");
+	$("#relatorios").attr("class", ".active");
+});
+
 // Run Datables plugin and create 3 variants of settings
 function AllTables(){
 	TestTable1();
