@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
+from distutils.dir_util import copy_tree
+from shutil import copyfile
 import sys
+import os
 import json
 import requests
+import time
+import shutil
 
 from subprocess import call, check_output, run, Popen
 
@@ -29,7 +34,20 @@ def generate_dynamic_reports(full_path, file_path):
 	
 	with open(full_path + "/reports/id_cuckoo.json", "w+") as outputfile:
 		outputfile.write(final_string)
- 
+	
+	status = 'not reported'
+	print(status)
+	
+	while status != 'reported':
+		r = requests.get("http://localhost:8090/tasks/view/" + str(task_id))
+		status = r.json()["task"]["status"]
+		print(status)
+		time.sleep(60)
+	os.chdir(full_pathi + "/reports")
+	path_analyses_cuckoo = "/home/artefathos/.cuckoo/storage/analyses/" + str(task_id)
+	shutil.make_archive("Arquivos_Analise_Dinamica", "zip", path_analyses_cuckoo)
+	
+	copyfile(path_analyses_cuckoo + "/reports/report.html", full_path + "/analise_dinamica.html") 
 	print("DYN REP WHRITTEN OK")
         
 
@@ -60,7 +78,7 @@ def virusTotal(path):
 
 full_path = sys.argv[1]
 file_path = sys.argv[2]
-generate_dynamic_reports(full_path, file_path)
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
+generate_dynamic_reports(full_path, file_path)
 print("SAVE FILE")
