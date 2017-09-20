@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from subprocess import call, check_output, Popen
 from datetime import datetime, timezone, timedelta
 from time import strftime
-from src.tools import virusTotal
+#from src.tools import virusTotal
 import json
 
 def my_login_required(function=None, login_url=None):
