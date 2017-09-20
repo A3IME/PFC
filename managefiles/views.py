@@ -65,8 +65,8 @@ def download_file(request, report_time, analysis_type, view_method):
                                 return response
                 elif analysis_type == "dynamic":
                         with open(dir_path + "/Arquivos_Analise_Dinamica.zip", "r") as f:
-				response = HttpResponse(f.read(), content_type="zip")
-				response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/Arquivos_Analise_Dinamica.zip")
+                                response = HttpResponse(f.read(), content_type="zip")
+                                response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/Arquivos_Analise_Dinamica.zip")
                                 return response		
 	else:
 		with open(dir_path + "/" + analysis_type + ".html", "r") as f:
