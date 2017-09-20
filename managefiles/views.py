@@ -5,8 +5,11 @@ from django.http import HttpResponse
 from .forms import File_upload, UploadFileForm
 from src.definitions import my_login_required, save_uploaded_file
 from subprocess import check_output
+from pathlib import Path
+from distutils.dir_util import copy_tree
 import os
 import json
+import requests
 
 @my_login_required
 def file_upload(request):
@@ -48,10 +51,20 @@ def download_file(request, report_time, analysis_type):
 			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/static_analysis.json")
 			return response
 	elif analysis_type == "dynamic":
-		with open(dir_path + "/dynamic_analysis.json", "r") as f:
+		dir_dynamic_files = dir_path + "/dynamic_files"
+		with open(dir_path + "/id_cuckoo.json", "r") as f:
+			id_cuckoo = f.read()
+		r = requests.get("http://localhost:8090/tasks/view/" + id_cuckoo)
+		status = r.json()["task"]["status"]
+
+		if status == 'reported':
+			fromDirectory = "/home/artefathos/.cuckoo/storage/analyses/" + id_cuckoo
+			toDirectory = dir_path + "/dynamic_files"
+			copy_tree(fromDirectory, toDirectory)
+		with open(dir_dynamic_files + "/reports/report.json", "r") as f:
 			response = HttpResponse(f.read(), content_type="json")
 			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/dynamic_analysis.json")
-			return response
+			return response		
 	elif analysis_type == "virus_total":
 		with open(dir_path + "/virus_total.json", "r") as f:
 			response = HttpResponse(f.read(), content_type="json")

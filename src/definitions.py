@@ -72,6 +72,7 @@ def save_uploaded_file(user, f):
 	full_path =  user_directory + datetime.now(tz=timezone(offset=timedelta(hours=-3))).strftime("%Y-%m-%d-%H-%M-%S-%f")
 	call(["mkdir", "-p", full_path])
 	call(["mkdir", "-p", full_path + "/reports"])
+	call(["mkdir", "-p", full_path + "/reports" + "/dynamic_files"])
 	gitignore_file = open(full_path + "/reports/.gitignore", "w")
 	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
 	gitignore_file.close()

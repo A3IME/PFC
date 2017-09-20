@@ -16,8 +16,21 @@ def generate_static_reports(full_path, file_path):
             outputfile.write(final_string)
 
 def generate_dynamic_reports(full_path, file_path):
-        Popen(["./src/queue_tools/push_line", "src/queue_tools/test", full_path, file_path])
-        print("DYN REP WHRITTEN OK")
+	#Popen(["./src/queue_tools/push_line", "src/queue_tools/test", full_path, file_path])
+	REST_URL = "http://localhost:8090/tasks/create/file"
+	FILE = file_path
+	
+	with open(FILE, "rb") as sample:
+		files = {"file": ("temp_file_name", sample)}
+		r = requests.post(REST_URL,  files=files)
+
+	task_id = r.json()["task_id"]
+	final_string = json.dumps(task_id, indent=4, sort_keys=False)
+	
+	with open(full_path + "/reports/id_cuckoo.json", "w+") as outputfile:
+		outputfile.write(final_string)
+ 
+	print("DYN REP WHRITTEN OK")
         
 
 def generate_virus_total_reports(full_path, file_path):
