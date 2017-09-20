@@ -2,6 +2,7 @@
 import sys
 import json
 import requests
+from json2html import *
 
 from subprocess import call, check_output, run, Popen
 
@@ -14,6 +15,10 @@ def generate_static_reports(full_path, file_path):
     final_string = json.dumps(static_analysis_dict, indent=4, sort_keys=False)
     with open(full_path + "/reports/static_analysis.json", "w+") as outputfile:
             outputfile.write(final_string)
+
+    # Generate HTML
+    with open(full_path + "/reports/static_analysis.html", "w+") as outputfile:
+        outputfile.write(json2html.convert(json = static_analysis_dict))
 
 def generate_dynamic_reports(full_path, file_path):
 	#Popen(["./src/queue_tools/push_line", "src/queue_tools/test", full_path, file_path])
@@ -39,6 +44,10 @@ def generate_virus_total_reports(full_path, file_path):
         with open(full_path + "/reports/virus_total.json", "w+") as outputfile:
                 outputfile.write(virus_total_string)
 
+        virus_total_dict = json.loads(virus_total_string)
+        with open(full_path + "/reports/virus_total.html", "w+") as outputfile:
+            outputfile.write(json2html.convert(json = virus_total_dict))
+
 def virusTotal(path):
     params = {'apikey': '95237e1de590ecf93b71c02679cd6ba797497f8d4aa3bd5483f2b51bb4015708'}
     files = {'file': (path, open(path, 'rb'))}
@@ -60,7 +69,7 @@ def virusTotal(path):
 
 full_path = sys.argv[1]
 file_path = sys.argv[2]
-generate_dynamic_reports(full_path, file_path)
+#generate_dynamic_reports(full_path, file_path)
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
 print("SAVE FILE")
