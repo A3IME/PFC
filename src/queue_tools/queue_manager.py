@@ -12,18 +12,18 @@ class myThread(threading.Thread):
     def run(self):
         while (not (self.data == ['False'])):
             #dynamicAnalisys
-            print("Dyn An")
-            print(self.data)
-            time.sleep(3)
-            subprocess.run(["./pop_line", "test", str(self.threadID)])
+            #print("Dyn An")
+            #print(self.data)
+            #time.sleep(3)
+            subprocess.run(["./pop_line", "DAQueue", str(self.threadID)])
             self.data = qCheck(self.threadID)
         myLock.acquire()
         freeThreads.add(self.threadID)
         myLock.release()
-        print("thread end")
+        #print("thread end")
 
 def qCheck(t):
-    p = subprocess.Popen(["./queue_check", "test", str(t)], stdout=subprocess.PIPE)
+    p = subprocess.Popen(["./queue_check", "DAQueue", str(t)], stdout=subprocess.PIPE)
     a, err = p.communicate()
     a = a.decode("UTF-8").rstrip().split(";")
     return a    
@@ -38,7 +38,7 @@ myLock = threading.Lock()
 for i in range(0, nThreads):
     freeThreads.add(i+1)
 
-subprocess.run(["./init_check", "test"])
+subprocess.run(["./init_check", "DAQueue"])
 
 while True:
     myLock.acquire()
@@ -55,5 +55,5 @@ while True:
         usedThreads = set()
     myLock.release()
     #CHANGE SLEEP VALUE
-    print(freeThreads)
+    #print(freeThreads)
     time.sleep(15)

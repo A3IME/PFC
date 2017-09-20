@@ -3,5 +3,4 @@
 (
 	flock -x 9
     echo "0;$2;$3" >> $1
-	echo "lalalalala"
 )9>>$1

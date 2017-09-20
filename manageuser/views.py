@@ -10,7 +10,6 @@ from django.contrib.auth.models import User
 
 @my_anonymous_required
 def index(request):
-    # return redirect('/login')
     if 'Registrar' in request.POST:
         return register(request)
     else:
@@ -21,7 +20,7 @@ def index(request):
 def register(request):
     form_login = Login()
     if request.method == 'POST':
-        print(request.POST)
+        #print(request.POST)
         form_register = Register(request.POST)
 
         if form_register.is_valid():
@@ -73,8 +72,6 @@ def update_infos(request):
             'surname': request.user.get_full_name().split()[1],
             'email': request.user.email
         })
-    #return render(request, 'manageuser/form.html',
-     #             {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
     return render(request, 'managefiles/atualizar_cadastro.html',
                   {'form': form, 'headCode': '<title>Atualizar</title>', 'submitValue': 'Atualizar'})
 
@@ -90,11 +87,8 @@ def change_password(request):
                 form.add_error('cnewPassword', 'Nova senha e confirmação diferentes')
             else:
                 my_change_password(form, request)
-                # return redirect('/')
     else:
         form = Change_password()
-    #return render(request, 'manageuser/form.html',
-     #             {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
     return render(request, 'managefiles/nova_senha.html', {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
 
 

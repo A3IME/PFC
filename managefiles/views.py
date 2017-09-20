@@ -16,17 +16,17 @@ import requests
 @my_login_required
 def file_upload(request):
 	if request.method == 'POST':
-		print("UP POST")
+		#print("UP POST")
 		form = File_upload(request.POST, request.FILES)
-		print(request.POST)
-		print(request.FILES)
+		#print(request.POST)
+		#print(request.FILES)
 		if form.is_valid():
-			print("UP VALID")
+			#print("UP VALID")
 			save_uploaded_file(request.user, request.FILES['file'])
 			return redirect("managefiles:show_directories")
 	else:
 		form = File_upload()
-		print(request.FILES)
+		#print(request.FILES)
 	return render(request, 'managefiles/fileform.html', {'form': form, 'headCode': '<title>Início</title>', 'submitValue': 'Enviar'})
 
 
@@ -42,15 +42,14 @@ def show_directories(request):
 	    output = subprocess.check_output(('grep', '-v', 'reports'), stdin=ls.stdout).decode("utf-8").split("\n")[0]
 	    ls.wait()
 	    ready_reports = check_output(["ls", reports_directory + "/" + directory + "/reports"]).decode("utf-8").split("\n")
-	    print(ready_reports)
+	    #print(ready_reports)
 	    info_list.append({"dir":directory, "file":output, "virus_total_ready":"virus_total.json" in ready_reports, "static_ready":"static_analysis.json" in ready_reports, "dynamic_ready":"Arquivos_Analise_Dinamica.zip" in ready_reports})
 
 	return render(request, 'managefiles/relatorios.html', {'user_name': user.username, 'info_list': info_list})
 
 @my_login_required
 def show_reports(request, report_time):
-# Criar lógica de fornecer arquivos para baixar aqui
-	print(report_time)
+	#print(report_time)
 	return render(request, 'managefiles/reports.html', {'user_name': request.user.username, 'report_time': report_time})
 
 def download_file(request, report_time, analysis_type, view_method):
@@ -97,7 +96,6 @@ class UploadView(TemplateView):
 	def post(self, request, *args, **kwargs):
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
-			#handle_upload(request.FILES['qqfile'], form.cleaned_data)
 			save_uploaded_file(request.user, request.FILES['qqfile'])
 			return make_response(content=json.dumps({ 'success': True }))
 		else:

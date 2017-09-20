@@ -21,12 +21,10 @@ def generate_static_reports(full_path, file_path):
     with open(full_path + "/reports/static_analysis.json", "w+") as outputfile:
             outputfile.write(final_string)
 
-    # Generate HTML
     with open(full_path + "/reports/static_analysis.html", "w+") as outputfile:
         outputfile.write(json2html.convert(json = static_analysis_dict))
 
 def generate_dynamic_reports(full_path, file_path):
-	#Popen(["./src/queue_tools/push_line", "src/queue_tools/test", full_path, file_path])
 	REST_URL = "http://localhost:8090/tasks/create/file"
 	FILE = file_path
 	
@@ -37,19 +35,19 @@ def generate_dynamic_reports(full_path, file_path):
 	task_id = r.json()["task_id"]
 	
 	status = 'not reported'
-	print(status)
+	#print(status)
 	
 	while status != 'reported':
 		r = requests.get("http://localhost:8090/tasks/view/" + str(task_id))
 		status = r.json()["task"]["status"]
-		print(status)
+		#print(status)
 		time.sleep(60)
 	os.chdir(full_path + "/reports")
 	path_analyses_cuckoo = "/home/artefathos/.cuckoo/storage/analyses/" + str(task_id)
 	shutil.make_archive("Arquivos_Analise_Dinamica", "zip", path_analyses_cuckoo)
 	
 	copyfile(path_analyses_cuckoo + "/reports/report.html", full_path + "/dynamic_analysis.html") 
-	print("DYN REP WHRITTEN OK")
+	#print("DYN REP WHRITTEN OK")
         
 
 def generate_virus_total_reports(full_path, file_path):
@@ -86,4 +84,4 @@ file_path = sys.argv[2]
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
 generate_dynamic_reports(full_path, file_path)
-print("SAVE FILE")
+#print("SAVE FILE")

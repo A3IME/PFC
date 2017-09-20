@@ -5,3 +5,4 @@ db.sqlite3.bak
 **/**/*.bak
 *.sqlite3
 usr/**
+src/queue_tools/testFiles

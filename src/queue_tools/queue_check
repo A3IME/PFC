@@ -13,10 +13,8 @@
 			D=$(grep -n -w 0 $1 | head -1 | cut -d ":" -f1)
 			sed -i "$D"'s/^0/'"$2"'/1' $1
 			echo $(grep -w $2 $1 | head -1)
-			
 		fi
 	else
 		echo $(grep -w $2 $1 | head -1)
 	fi
-
 )9>>$1

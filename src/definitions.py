@@ -72,20 +72,19 @@ def save_uploaded_file(user, f):
 	full_path =  user_directory + datetime.now(tz=timezone(offset=timedelta(hours=-3))).strftime("%Y-%m-%d-%H-%M-%S-%f")
 	call(["mkdir", "-p", full_path])
 	call(["mkdir", "-p", full_path + "/reports"])
-	call(["mkdir", "-p", full_path + "/reports" + "/dynamic_files"])
-	gitignore_file = open(full_path + "/reports/.gitignore", "w")
-	gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
-	gitignore_file.close()
-	call(["rm", user_directory + ".gitignore"])
+	#call(["mkdir", "-p", full_path + "/reports" + "/dynamic_files"])
+	#gitignore_file = open(full_path + "/reports/.gitignore", "w")
+	#gitignore_file.write("# Ignore everything in this directory\n*\n# Except this file\n!.gitignore")
+	#gitignore_file.close()
+	#call(["rm", user_directory + ".gitignore"])
 	file_path = full_path + "/" + f.name
 	with open(file_path, 'wb+') as destination:
 		for chunk in f.chunks():
 			destination.write(chunk)
-	#CALL HERE MODEL 2 SCRIPT
-	#FANTASY NAME FUNCTION BELOW
-	#Popen(["pwd"])
-	#generate_reports(full_path, file_path)
-	Popen(["./src/tools2.py", full_path, file_path])
+	Popen(["./src/tools.py", full_path, file_path])
+
+'''
+APAGAR TD DAQUI PRA BAIXO!!!!
 
 def generate_reports(full_path, file_path):
 	generate_static_reports(full_path, file_path)
@@ -111,3 +110,4 @@ def generate_virus_total_reports(full_path, file_path):
         virus_total_string = json.dumps(virusTotal(file_path), indent=4, sort_keys=False)
         with open(full_path + "/reports/virus_total.json", "w+") as outputfile:
                 outputfile.write(virus_total_string)
+'''
