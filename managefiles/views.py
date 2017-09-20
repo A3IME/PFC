@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .forms import File_upload, UploadFileForm
 from src.definitions import my_login_required, save_uploaded_file
 import subprocess
@@ -10,6 +10,7 @@ from pathlib import Path
 from distutils.dir_util import copy_tree
 import os
 import json
+from json2html import *
 import requests
 
 @my_login_required
@@ -51,34 +52,35 @@ def show_reports(request, report_time):
 	print(report_time)
 	return render(request, 'managefiles/reports.html', {'user_name': request.user.username, 'report_time': report_time})
 
-def download_file(request, report_time, analysis_type):
+def download_file(request, report_time, analysis_type, view_method):
 	user = request.user
 	dir_path = check_output(["pwd"]).decode("utf-8")[:-1] + "/usr/" + user.directories.directory + "/" + report_time + "/reports"
-	if analysis_type == "static":
-		with open(dir_path + "/static_analysis.json", "r") as f:
-			response = HttpResponse(f.read(), content_type="json")
-			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/static_analysis.json")
-			return response
-	elif analysis_type == "dynamic":
-		dir_dynamic_files = dir_path + "/dynamic_files"
-		with open(dir_path + "/id_cuckoo.json", "r") as f:
-			id_cuckoo = f.read()
-		r = requests.get("http://localhost:8090/tasks/view/" + id_cuckoo)
-		status = r.json()["task"]["status"]
+	if view_method == "json":
+                if (analysis_type == "static_analysis") or (analysis_type == "virus_total"):
+	                with open(dir_path + "/" + analysis_type + ".json", "r") as f:
+                                response = HttpResponse(f.read(), content_type="json")
+                                response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/" + analysis_type + ".json")
+                                return response
+                elif analysis_type == "dynamic":
+                        dir_dynamic_files = dir_path + "/dynamic_files"
+                        with open(dir_path + "/id_cuckoo.json", "r") as f:
+                                id_cuckoo = f.read()
+                        r = requests.get("http://localhost:8090/tasks/view/" + id_cuckoo)
+                        status = r.json()["task"]["status"]
 
-		if status == 'reported':
-			fromDirectory = "/home/artefathos/.cuckoo/storage/analyses/" + id_cuckoo
-			toDirectory = dir_path + "/dynamic_files"
-			copy_tree(fromDirectory, toDirectory)
-		with open(dir_dynamic_files + "/reports/report.json", "r") as f:
-			response = HttpResponse(f.read(), content_type="json")
-			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/dynamic_analysis.json")
-			return response		
-	elif analysis_type == "virus_total":
-		with open(dir_path + "/virus_total.json", "r") as f:
-			response = HttpResponse(f.read(), content_type="json")
-			response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/virus_total.json")
-			return response
+                        if status == 'reported':
+                                fromDirectory = "/home/artefathos/.cuckoo/storage/analyses/" + id_cuckoo
+                                toDirectory = dir_path + "/dynamic_files"
+                                copy_tree(fromDirectory, toDirectory)
+                        with open(dir_dynamic_files + "/reports/report.json", "r") as f:
+                                response = HttpResponse(f.read(), content_type="json")
+                                response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/dynamic_analysis.json")
+                                return response		
+	else:
+                if (analysis_type == "static_analysis") or (analysis_type == "virus_total"):
+                        with open(dir_path + "/" + analysis_type + ".html", "r") as f:
+                            content = f.read()
+                        return render(request, 'managefiles/reports_html_view.html', {'content': content})
 	raise Http404
 
 
