@@ -1,0 +1,161 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 07:05:28
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 07:25:27
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 07:26:36
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 07:30:54
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 07:51:21
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:00:42
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:12:41
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+Performing system checks...
+
+Performing system checks...
+
+Performing system checks...
+
+Performing system checks...
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:18:46
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:19:12
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:20:28
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:22:26
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:24:00
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:27:25
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:28:39
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:31:46
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:31:51
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:37:34
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:40:20
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:42:01
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:45:13
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 28, 2017 - 08:50:04
+Django version 1.11.5, using settings 'pfc.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.

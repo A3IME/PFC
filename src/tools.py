@@ -43,7 +43,7 @@ def generate_dynamic_reports(full_path, file_path):
 	path_analyses_cuckoo = "/home/artefathos/.cuckoo/storage/analyses/" + str(task_id)
 	shutil.make_archive("Arquivos_Analise_Dinamica", "zip", path_analyses_cuckoo)
 	
-	copyfile(path_analyses_cuckoo + "/reports/report.html", full_path + "/dynamic_analysis.html") 
+	copyfile(path_analyses_cuckoo + "/reports/report.html", full_path + "/reports/dynamic_analysis.html") 
         
 
 def generate_virus_total_reports(full_path, file_path):
@@ -78,4 +78,4 @@ full_path = sys.argv[1]
 file_path = sys.argv[2]
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
-#generate_dynamic_reports(full_path, file_path)
+generate_dynamic_reports(full_path, file_path)

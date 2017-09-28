@@ -1,7 +1,18 @@
-[33m
-   _______ _     _ _______ _     _  _____   _____
-   |       |     | |       |____/  |     | |     |
-   |_____  |_____| |_____  |    \_ |_____| |_____|[0m
+[32m
+    sSSs   .S       S.     sSSs   .S    S.     sSSs_sSSs      sSSs_sSSs
+   d%%SP  .SS       SS.   d%%SP  .SS    SS.   d%%SP~YS%%b    d%%SP~YS%%b
+  d%S'    S%S       S%S  d%S'    S%S    S&S  d%S'     `S%b  d%S'     `S%b
+  S%S     S%S       S%S  S%S     S%S    d*S  S%S       S%S  S%S       S%S
+  S&S     S&S       S&S  S&S     S&S   .S*S  S&S       S&S  S&S       S&S
+  S&S     S&S       S&S  S&S     S&S_sdSSS   S&S       S&S  S&S       S&S
+  S&S     S&S       S&S  S&S     S&S~YSSY%b  S&S       S&S  S&S       S&S
+  S&S     S&S       S&S  S&S     S&S    `S%  S&S       S&S  S&S       S&S
+  S*b     S*b       d*S  S*b     S*S     S%  S*b       d*S  S*b       d*S
+  S*S.    S*S.     .S*S  S*S.    S*S     S&  S*S.     .S*S  S*S.     .S*S
+   SSSbs   SSSbs_sdSSS    SSSbs  S*S     S&   SSSbs_sdSSS    SSSbs_sdSSS
+    YSSP    YSSP~YSSY      YSSP  S*S     SS    YSSP~YSSY      YSSP~YSSY
+                                 SP
+                                 Y[0m
 
  Cuckoo Sandbox [33m2.0.4[0m
  www.cuckoosandbox.org

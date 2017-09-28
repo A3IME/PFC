@@ -65,6 +65,7 @@ def update_infos(request):
         form = Update_infos(request.POST)
         if form.is_valid():
             my_update_info_user(form, request)
+            return redirect('/')
     else:
         form = Update_infos(initial={
 
@@ -87,6 +88,7 @@ def change_password(request):
                 form.add_error('cnewPassword', 'Nova senha e confirmação diferentes')
             else:
                 my_change_password(form, request)
+                return redirect('/')
     else:
         form = Change_password()
     return render(request, 'managefiles/nova_senha.html', {'form': form, 'headCode': '<title>Alterar senha</title>', 'submitValue': 'Alterar'})
