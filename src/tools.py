@@ -78,4 +78,4 @@ full_path = sys.argv[1]
 file_path = sys.argv[2]
 generate_static_reports(full_path, file_path)
 generate_virus_total_reports(full_path, file_path)
-generate_dynamic_reports(full_path, file_path)
+#generate_dynamic_reports(full_path, file_path)

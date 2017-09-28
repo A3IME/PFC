@@ -91,10 +91,10 @@ function LoadSelect2Script(callback){
 //
 function LoadDataTablesScripts(callback){
 	function LoadDatatables(){
-		$.getScript('plugins/datatables/jquery.dataTables.js', function(){
-			$.getScript('plugins/datatables/ZeroClipboard.js', function(){
-				$.getScript('plugins/datatables/TableTools.js', function(){
-					$.getScript('plugins/datatables/dataTables.bootstrap.js', callback);
+		$.getScript('static/managefiles/plugins/datatables/jquery.dataTables.js', function(){
+			$.getScript('static/managefiles/plugins/datatables/ZeroClipboard.js', function(){
+				$.getScript('static/managefiles/plugins/datatables/TableTools.js', function(){
+					$.getScript('static/managefiles/plugins/datatables/dataTables.bootstrap.js', callback);
 				});
 			});
 		});
@@ -2286,6 +2286,101 @@ function DrawFullCalendar(){
 	LoadCalendarScript(DrawCalendar);
 }
 
+function LoadReport(data, type){
+    //console.log("It is work!");
+    var dataHtml = "";
+    var data_to_Display = "";
+    var htmlHeader = "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"box\"><div class=\"box-header\">" +
+				"<div class=\"box-name\"><!--i class=\"fa fa-usd\"></i--><span>Relatório " + type + "</span></div>" +
+				"<div class=\"box-icons\"><a class=\"collapse-link\"><i class=\"fa fa-chevron-up\"></i></a>" +
+					"<a class=\"expand-link\"><i class=\"fa fa-expand\"></i></a><a class=\"close-link\">" +
+						"<i class=\"fa fa-times\"></i></a></div><div class=\"no-move\"></div></div>";
+
+	if (type == "VirusTotal") {
+        for (var i = 0; i < Object.keys(data.scans).length; i++) {
+  		var antiVirus = data.scans[Object.keys(data.scans)[i]];
+  		dataHtml = dataHtml + "<tr><td>" + Object.keys(data.scans)[i] + "</td>" +
+  						"<td><center>" + antiVirus.detected + "</center></td>" +
+						"<td>" + antiVirus.version + "</td>" +
+						"<td><center>" + antiVirus.result + "</center></td>" +
+						"<td><center>" + antiVirus.update + "</center></td>" +
+					"</tr>";
+        }
+          data_to_Display = "<div class=\"box-content no-padding\">" +
+  					"<table class=\"table table-bordered table-striped table-hover table-heading table-datatable\">" +
+				"<thead>" +
+						"<tr>" +
+							"<th><center>Antivirus</center></th>" +
+							"<th><center>Detectado</center></th>" +
+							"<th><center>Versão</center></th>" +
+							"<th><center>Resultado</center></th>" +
+							"<th><center>Atualização</center></th>" +
+						"</tr>" +
+					"</thead>" +
+					"<tbody>" +	dataHtml + "</tbody></table></div>";
+
+
+	}
+    //console.log("Chegou aqui!");
+    if (type == "PEframe") {
+	   data_to_Display = "<div class=\"box-content no-padding\">" +
+  					"<table class=\"table table-bordered table-striped table-hover table-heading table-datatable\">" +
+					"<tbody>" +
+						"<tr>" +
+							"<th>fuzzing</th>" +
+							"<td>" + data.fuzzing + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>file_found</th>" +
+							"<td>" + data.file_found + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>filetype</th>" +
+							"<td>" + data.filetype + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>pe_info</th>" +
+							"<td>" + data.pe_info + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>url_found</th>" +
+							"<td>" + data.url_found + "</td>" +
+						"</tr>" +
+						"<tr><th style=\"vertical-align: middle;\">hash</th><td>" +
+						"<table class=\"table table-bordered table-striped table-hover table-heading table-datatable\">" +
+							"<tbody>" +
+								"<tr><th>sha256</th><td>" + data.hash.sha256 + "</td></tr>" +
+								"<tr><th>md5</th><td>" + data.hash.md5 + "</td></tr>" +
+								"<tr><th>sha1</th><td>" + data.hash.sha1 + "</td></tr>" +
+							"</tbody>" +
+						"</table></td></tr>" +
+						"<tr>" +
+							"<th>file_type</th>" +
+							"<td>" + data.file_type + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>file_name</th>" +
+							"<td>" + data.file_name + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>ip_found</th>" +
+							"<td>" + data.ip_found + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>file_size</th>" +
+							"<td>" + data.file_size + "</td>" +
+						"</tr>" +
+						"<tr>" +
+							"<th>peframe_ver</th>" +
+							"<td>" + data.peframe_ver + "</td>" +
+						"</tr>" +
+					"</table></div>";
+	//				alert(data_to_Display);
+
+	}
+		    return htmlHeader + data_to_Display;
+}
+
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 //
@@ -2429,5 +2524,7 @@ $(document).ready(function () {
 		OpenModalBox(header, form, button);
 	});
 });
+
+
 
 

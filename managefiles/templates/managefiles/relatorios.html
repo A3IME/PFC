@@ -1,4 +1,33 @@
 {% extends 'managefiles/index.html' %}
+{% block doctype %}<!DOCTYPE HTML>{% endblock %}
+
+{% block head %}
+	{% load staticfiles %}
+	{% load widget_tweaks %}
+	<head>
+		<meta charset="utf-8">
+		<title>artefAthos</title>
+		<meta name="description" content="description">
+		<meta name="author" content="DevOOPS">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="{% static 'managefiles/plugins/bootstrap/bootstrap.css' %}" rel="stylesheet">
+		<link href="{% static 'managefiles/plugins/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+		<link href="{% static 'managefiles/plugins/fancybox/jquery.fancybox.css' %}" rel="stylesheet">
+		<link href="{% static 'managefiles/plugins/fullcalendar/fullcalendar.css' %}" rel="stylesheet">
+		<link href="{% static 'managefiles/plugins/xcharts/xcharts.min.css' %}" rel="stylesheet">
+		<link href="{% static 'managefiles/plugins/select2/select2.css' %}" rel="stylesheet">
+		<link href="{% static 'managefiles/css/style.css' %}" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+				<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -53,7 +82,7 @@
 									<td style="padding-bottom: 0px">
 										<center>
                                                                                         {% if info.virus_total_ready %}
-											<a href="/relatorios/{{ info.dir }}/virus_total/html" onclick="window.open('/relatorios/{{ info.dir }}/virus_total/html', 'newwindow', 'width=1200,height=1000'); return false;">
+											<a onclick="display_Report('{{ info.dir }}/virus_total/html', 'VirusTotal');">
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-eye"></i>
 												</div>
@@ -73,9 +102,11 @@
 									</td>
 									<td style="padding-bottom: 0px">
 										<center>
-                                                                                        {% if info.static_ready %}
+                                                                                       {% if info.static_ready %}
 
-											<a target="_blank" href="/relatorios/{{ info.dir }}/static_analysis/html" onclick="window.open('/relatorios/{{ info.dir }}/static_analysis/html', 'newwindow', 'width=1200,height=1000'); return false;">
+											<a onclick="display_Report('{{ info.dir }}/static_analysis/html', 'PEframe');">
+
+											<!--a target="_blank" href="/relatorios/{{ info.dir }}/static_analysis/html" onclick="window.open('/relatorios/{{ info.dir }}/static_analysis/html', 'newwindow', 'width=1200,height=1000'); return false;"-->
 												<div class="btn btn-app btn-app-sm">
 													<i class="fa fa-eye"></i>
 												</div>
@@ -135,12 +166,28 @@
 	</div>
 </div>
 
+<div id="virusTotal"></div>
+
+<div id="PEFrame"></div>
+
+<div id="Cuckoo"></div>
+
+
+<script src="{% static 'managefiles/plugins/jquery/jquery-2.1.0.min.js' %}"></script>
+<script src="{% static 'managefiles/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<!--script src="{% static 'managefiles/js/devoops.js' %}"></script-->
+
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#home").attr("class", "");
-	$("#relatorios").attr("class", ".active");
-});
+$("#home").attr("class", "");
+$("#relatorios").attr("class", "active");
+
+function display_Report(path, type) {
+	$.get(path, function(data, status) {
+		//alert(data);
+        $(LoadReport(JSON.parse(data), type)).appendTo("#virusTotal");
+	});
+}
 
 // Run Datables plugin and create 3 variants of settings
 function AllTables(){
@@ -160,6 +207,11 @@ $(document).ready(function() {
 	LoadDataTablesScripts(AllTables);
 	// Add Drag-n-Drop feature
 	WinMove();
+	//LoadReport(data, "VirusTotal");
 });
 </script>
+
+
 {% endblock content %}
+	</body>
+</html>

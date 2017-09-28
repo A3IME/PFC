@@ -68,9 +68,14 @@ def download_file(request, report_time, analysis_type, view_method):
                                 response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/Arquivos_Analise_Dinamica.zip")
                                 return response		
 	else:
-		with open(dir_path + "/" + analysis_type + ".html", "r") as f:
-		    content = f.read()
-		return render(request, 'managefiles/reports_html_view.html', {'content': content})
+#		with open(dir_path + "/" + analysis_type + ".html", "r") as f:
+#		    content = f.read()
+#		return render(request, 'managefiles/reports_html_view.html', {'content': content})
+
+
+		with open(dir_path + "/" + analysis_type + ".json", "r") as f:
+			content = f.read()
+		return HttpResponse(content)
 
 	raise Http404
 
