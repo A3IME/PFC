@@ -16,17 +16,12 @@ import requests
 @my_login_required
 def file_upload(request):
 	if request.method == 'POST':
-		#print("UP POST")
 		form = File_upload(request.POST, request.FILES)
-		#print(request.POST)
-		#print(request.FILES)
 		if form.is_valid():
-			#print("UP VALID")
 			save_uploaded_file(request.user, request.FILES['file'])
 			return redirect("managefiles:show_directories")
 	else:
 		form = File_upload()
-		#print(request.FILES)
 	return render(request, 'managefiles/fileform.html', {'form': form, 'headCode': '<title>Início</title>', 'submitValue': 'Enviar'})
 
 
@@ -42,14 +37,12 @@ def show_directories(request):
 	    output = subprocess.check_output(('grep', '-v', 'reports'), stdin=ls.stdout).decode("utf-8").split("\n")[0]
 	    ls.wait()
 	    ready_reports = check_output(["ls", reports_directory + "/" + directory + "/reports"]).decode("utf-8").split("\n")
-	    #print(ready_reports)
 	    info_list.append({"dir":directory, "file":output, "virus_total_ready":"virus_total.json" in ready_reports, "static_ready":"static_analysis.json" in ready_reports, "dynamic_ready":"Arquivos_Analise_Dinamica.zip" in ready_reports})
 
 	return render(request, 'managefiles/relatorios.html', {'user_name': user.username, 'info_list': info_list})
 
 @my_login_required
 def show_reports(request, report_time):
-	#print(report_time)
 	return render(request, 'managefiles/reports.html', {'user_name': request.user.username, 'report_time': report_time})
 
 def download_file(request, report_time, analysis_type, view_method):
@@ -68,10 +61,6 @@ def download_file(request, report_time, analysis_type, view_method):
                                 response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(dir_path + "/Arquivos_Analise_Dinamica.zip")
                                 return response		
 	else:
-#		with open(dir_path + "/" + analysis_type + ".html", "r") as f:
-#		    content = f.read()
-#		return render(request, 'managefiles/reports_html_view.html', {'content': content})
-
 		if (analysis_type != "dynamic_analysis"):
 			with open(dir_path + "/" + analysis_type + ".json", "r") as f:
 				content = f.read()
