@@ -20,7 +20,6 @@ def index(request):
 def register(request):
     form_login = Login()
     if request.method == 'POST':
-        #print(request.POST)
         form_register = Register(request.POST)
 
         if form_register.is_valid():
